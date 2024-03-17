@@ -18,6 +18,7 @@ btnsNum.forEach((btn) =>{
     btn.addEventListener('click', () => {
         updateDisplay(btn.id);
         takingInput(btn.id);
+        console.log(btn.id);
     })
 });
 
@@ -40,6 +41,10 @@ function operate(a, operator, b){
             display.textContent = multiply(Number(a),Number(b));
             break;
         case '/':
+            if(b == 0){
+                display.textContent = 'err';
+                break;
+            }
             display.textContent = divide(Number(a),Number(b));
             break;
     }
@@ -47,7 +52,7 @@ function operate(a, operator, b){
 
 //function to update the display.
 function updateDisplay(id){
-    if(id[1] > 0 && id[1] <= 10)
+    if(id[1] >= 0 && id[1] <= 10)
         display.textContent += id[1];
 }
 
