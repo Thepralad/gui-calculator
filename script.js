@@ -1,3 +1,4 @@
+let a = 0, b = 0, op;
 let btnsNum = [];
 var display = document.querySelector('#display');
 
@@ -5,7 +6,7 @@ var display = document.querySelector('#display');
 const btnIDsNum = ['n1', 'n2', 'n3', 'n4',
                 'n5', 'n6', 'n7', 'n8',
                 'n9', 'n0', 'ac', 'p',
-                's', 'd', 'm','eq'];
+                's', 'd', 'm','eq', 'del'];
 
 //Selecting all the buttons using an array of id names
 for(let i = 0; i < btnIDsNum.length; i++){
@@ -16,6 +17,7 @@ for(let i = 0; i < btnIDsNum.length; i++){
 btnsNum.forEach((btn) =>{
     btn.addEventListener('click', () => {
         updateDisplay(btn.id);
+        takingInput(btn.id);
     })
 });
 
@@ -29,16 +31,16 @@ const divide = (a,b) => a / b;
 function operate(a, operator, b){
     switch (operator){
         case '+':
-            console.log(add(a,b));
+            display.textContent = add(Number(a),Number(b));
             break;
         case '-':
-            console.log(substract(a,b));
+            display.textContent = substract(Number(a),Number(b));
             break;
         case '*':
-            console.log(multiply(a.b));
+            display.textContent = multiply(Number(a),Number(b));
             break;
         case '/':
-            console.log(divide(a,b));
+            display.textContent = divide(Number(a),Number(b));
             break;
     }
 } 
@@ -49,8 +51,62 @@ function updateDisplay(id){
         display.textContent += id[1];
 }
 
-function takingInput(){
+function takingInput(input){
+    let opPressed = false;
+    switch (input) {
+        case 'ac':
+            display.textContent = '';
+            a = 0;
+            b = 0;
+            op = false;
+            break;
 
+        case 'p':
+            if(!opPressed){
+                a = display.textContent;
+                op = '+';
+                opPressed = true;
+                display.textContent = '';
+            }  
+            break;
+        
+        case 's':
+            if(!opPressed){
+                a = display.textContent;
+                op = '-';
+                opPressed = true;
+                display.textContent = '';
+            }  
+            break;
+        
+        case 'm':
+            if(!opPressed){
+                a = display.textContent;
+                op = '*';
+                opPressed = true;
+                display.textContent = '';
+            }  
+            break;
+
+        case 'd':
+            if(!opPressed){
+                a = display.textContent;
+                op = '/';
+                opPressed = true;
+                display.textContent = '';
+            }  
+            break;
+        case 'eq':
+            b = display.textContent;
+            operate(a,op,b);
+            break;
+        case 'del':
+            display.textContent = display.textContent.replace(display.textContent[display.textContent.length - 1], '');
+        default:
+            break;
+    }
+    
+    
 }
 
 
